@@ -1,0 +1,1 @@
+Calculate % match (100 - (total difference / user score)
