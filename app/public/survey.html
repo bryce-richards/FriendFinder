@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>FriendFinder - Survey</title>
-    <link rel="stylesheet" href="../../css/custom.min.css">
-    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="http://bootswatch.com/slate/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/c09fe9cceb.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
     <main class="container">
@@ -13,6 +15,7 @@
             <div class="col-lg-10 col-lg-offset-1">
                 <h1>
                     Survey Questionnaire
+                    <a href="/home"><button type="button" class="btn btn-lg btn-primary pull-right"><i class="fa fa-home" aria-hidden="true"></i></button></a>
                 </h1>
                 <hr>
                 <form class="form-horizontal">
@@ -47,8 +50,76 @@
             </div>
         </div>
     </main>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="survey.js"></script>
-<script src="../routing/api-routes.js"></script>
+
+<!--SURVEY QUESTIONS    -->
+    <script type="text/javascript">
+        // drop down menu choices
+        var choices = ["1 (Strongly Disagree)","2","3","4","5 (Strongly Agree)"];
+
+        // array of questions
+        var questions = [
+            "You enjoy outdoor activities such as hiking and camping.",
+            "You consider yourself more of a cat person than a dog person.",
+            "Your political views would most closely align with right-wing/conservative.",
+            "You enjoy playing or watching sports.",
+            "You care a lot about what other people think about you.",
+            "You enjoy playing video games",
+            "On the weekends, you like going to the club and dancing.",
+            "You enjoy large parties versus more intimate gatherings.",
+            "You work well under pressure.",
+            "You consider yourself to be an artistic person."
+        ];
+
+        // loop to build and display questions on html page
+        for (var i = 0; i < questions.length; i++) {
+            var questionDiv = $("<div>");
+            questionDiv.addClass("form-group");
+            var questionNumber = $("<h4>");
+            questionNumber.text("Question #" + (parseInt(i) + 1));
+            var questionText = $("<h5>");
+            questionText.text(questions[i]);
+            var questionChoices = $("<div>");
+            questionChoices.addClass("col-lg-3");
+            var questionSelect = $("<select>");
+            questionSelect.addClass("form-control question");
+            questionSelect.attr("id", "q" + (parseInt(i) + 1));
+            for (var j = 0; j < choices.length; j++) {
+                var option = $("<option>");
+                option.attr("value", (parseInt(j) + 1));
+                option.text(choices[j]);
+                questionSelect.append(option);
+            }
+            questionChoices.append(questionSelect);
+            questionDiv.append(questionNumber);
+            questionDiv.append(questionText);
+            questionDiv.append(questionChoices);
+            $("#questions").append(questionDiv);
+        }
+    </script>
+    <script type="text/javascript">
+        $("#submitBtn").on("click", function() {
+            var results = [];
+            $("select").each(function() {
+                results.push($(this).val());
+            });
+            var newFriend = {
+                name: $("#inputName").val().trim(),
+                photo: $("#inputImage").val().trim(),
+                scores: results
+            };
+
+            var currentURL = window.location.origin;
+
+            $.post(currentURL + "/api/friends", newFriend)
+            .done(function(data) {
+                console.log(data);
+                $("select").each(function() {
+                    $(this).val("");
+                });
+            });
+
+
+        });
+    </script>
 </body>
 </html>

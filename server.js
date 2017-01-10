@@ -10,9 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json"}));
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "home.html"))
-});
+require("./app/routing/api-routes");
+require("./app/routing/html-routes");
 
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);

@@ -1,16 +1,16 @@
-var express = require('express');
+var path = require('path');
 
-var app = express();
-var PORT = process.env.PORT || 5555;
+module.exports = function (app) {
 
-app.get("/add", function(req, res) {
-    res.sendFile(path.join(__dirname, "survey.html"))
-});
+    app.get('/survey', function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/survey.html'));
+    });
 
-app.use("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "home.html"))
-});
+    app.get('/home', function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/home.html'));
+    });
 
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-});
+    app.use(function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/home.html'));
+    });
+};
