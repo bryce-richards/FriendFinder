@@ -141,7 +141,8 @@
 
             var currentURL = window.location.origin;
 
-            $.post(currentURL + "/api/friends", newFriend, function(data) {
+            $.post(currentURL + "/api/friends", newFriend)
+            .done(function(data) {
                 console.log("DATA! ", data);
 
                 // MODAL CODE FROM SAMPLE
