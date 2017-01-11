@@ -53,6 +53,7 @@ function compareFriends(friend) {
 
         if (results) {
 
+            console.log("Compare Friends MySQL Results: ", results);
             // variable for mysql friends object
             var friends = results;
 

@@ -6,12 +6,11 @@ var compareFriends = friends.compareFriends;
 module.exports = function(app) {
 
     app.get("/api/friends", function(req, res) {
-        getFriends()
+        return getFriends()
         .then(function(results) {
             if (results) {
-                return res.json({
-                    friends: results
-                });
+                console.log("Results are in!");
+                return res.json(results);
             } else {
                 return res.json({
                     results: "No friends!"
@@ -26,12 +25,11 @@ module.exports = function(app) {
     });
 
     app.post("/api/friends", function(req, res) {
-        compareFriends(req.body)
+        return compareFriends(req.body)
         .then(function(results) {
             if (results) {
-                return res.json({
-                    success: results
-                })
+                console.log("Results are in!");
+                return res.json(results);
             } else {
                 return res.json({
                     error: "No matches found! Try again soon!"
