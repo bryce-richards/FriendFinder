@@ -29,18 +29,10 @@ function getFriends() {
     return query("SELECT * FROM friends");
 }
 
-// function to add newe friend to database
-function addFriend(friend) {
-    return query("INSERT INTO friends SET ?", [{
-        friend_name: friend.name,
-        friend_image: friend.photo,
-        friend_results: friend.scores
-    }]);
-}
-
 // function to compare new friend to all friends in database
 function compareFriends(friend) {
-    
+
+    var bestMatch;
     // array of answers from new friend
     var answers = friend.scores.split(",");
 
@@ -60,7 +52,7 @@ function compareFriends(friend) {
         var bestDifference = 0;
 
         // variable for best match
-        var bestMatch = friends[0];
+        bestMatch = friends[0];
 
         // loop through mysql results
         for (var i = 0; i < friends.length; i++) {
@@ -103,7 +95,14 @@ function compareFriends(friend) {
             }
         }
     })
-    .then(function(match) {
+    .then(function() {
+        return query("INSERT INTO friends SET ?", [{
+            friend_name: friend.name,
+            friend_image: friend.photo,
+            friend_results: friend.scores
+        }]);
+    })
+    .then(function() {
         
         // return best match
         return match;
@@ -115,4 +114,3 @@ function compareFriends(friend) {
 
 exports.getFriends = getFriends;
 exports.compareFriends = compareFriends;
-exports.addFriend = addFriend;
