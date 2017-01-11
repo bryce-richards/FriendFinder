@@ -16,7 +16,9 @@ module.exports = function(app) {
         })
     });
 
-    app.post("/api/friends", function(req, res) {
+    app.post("/api/friends", function(req, res, next) {
         res.json(compareFriends(req.body));
+        next();
+        res.json(addFriend(req.body));
     });
 };
