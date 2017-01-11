@@ -50,7 +50,6 @@ function compareFriends(friend) {
     // mysql query to get all friends
     return query("SELECT * FROM friends")
     .then(function(results) {
-        console.log("Query Results: ", results);
         // variable for mysql friends object
         var friends = results;
 
@@ -75,9 +74,8 @@ function compareFriends(friend) {
                 // add difference between each answer to difference counter
                 difference += Math.abs(answers[j] - friends[i].friend_results.split(",")[j]);
 
-                console.log("DIFFERENCE", difference);
             }
-            
+
             // if match found boolean is still false...
             if (!matchFound) {
                 
@@ -104,12 +102,14 @@ function compareFriends(friend) {
                 }
             }
         }
-        console.log("bestMatch", bestMatch);
     })
     .then(function(match) {
         
         // return best match
         return match;
+    })
+    .catch(function(error) {
+        return error;
     });
 }
 

@@ -6,7 +6,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="http://bootswatch.com/slate/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/c09fe9cceb.js"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -36,9 +38,10 @@
                             <input type="url" class="form-control" id="inputImage" placeholder="Image URL">
                         </div>
                         <hr>
-                        <!--QUESTIONS TO BE ADDED VIA JAVASCRIPT-->
+                        <!-- QUESTIONS TO BE ADDED VIA JAVASCRIPT -->
                         <div id="questions">
                         </div>
+                        <!-- END OF QUESTIONS -->
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <button type="reset" class="btn btn-danger" id="cancelBtn">Cancel</button>
@@ -51,19 +54,17 @@
         </div>
     </main>
 
-    <!-- Modal -->
+    <!-- MODAL FROM EXAMPLE -->
     <div id="resultsModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title"><strong>Best Match</strong></h2>
                 </div>
                 <div class="modal-body">
-                    <h2 id="matchName">Spongebob Squarepants</h2>
-                    <img id="matchImg" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Spongebob-squarepants.svg/666px-Spongebob-squarepants.svg.png" alt="">
+                    <h2 id="matchName">It's a puppy!</h2>
+                    <img id="matchImg" src="http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg" alt="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -80,6 +81,7 @@
     </footer>
 <!--SURVEY QUESTIONS-->
     <script type="text/javascript">
+
         // drop down menu choices
         var choices = ["1 (Strongly Disagree)","2","3","4","5 (Strongly Agree)"];
 
@@ -122,8 +124,8 @@
             questionDiv.append(questionChoices);
             $("#questions").append(questionDiv);
         }
-    </script>
-    <script type="text/javascript">
+
+        // FORM SUBMIT
         $("#submitBtn").on("click", function(event) {
             event.preventDefault();
             var results = [];
@@ -139,14 +141,13 @@
 
             var currentURL = window.location.origin;
 
-            $.post(currentURL + "/api/friends", newFriend, newFriend)
-            .done(function(data) {
+            $.post(currentURL + "/api/friends", newFriend, function(data) {
                 console.log("DATA! ", data);
-                // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-                $("#matchName").text(data.friend_name);
-                $("#matchImg").attr("src", data.friend_image);
 
-                // Show the modal with the best match
+                // MODAL CODE FROM SAMPLE
+                $("#matchName").text(data.friend_name);
+                $("#matchImg").attr("src", data.friend_image).css("max-height", "400px");
+
                 $("#resultsModal").modal('toggle');
 
                 $(".question").each(function() {
