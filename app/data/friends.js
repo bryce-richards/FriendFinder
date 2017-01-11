@@ -4,7 +4,7 @@ var bluebird = require("bluebird");
 
 var connection = mysql.createConnection({
     host: process.env.host,
-    port: process.env.port,
+    port: 3306,
     user: process.env.user,
     password: process.env.password,
     database: process.env.database
