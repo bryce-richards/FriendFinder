@@ -3,11 +3,10 @@ var mysql = require("mysql");
 var bluebird = require("bluebird");
 
 var connection = mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
-    user: "root",
-    password: "password",
-    database: "friend_finder"
+    host: "us-cdbr-iron-east-04.cleardb.net",
+    user: "bf070deab3b355",
+    password: "f88f0312",
+    database: "heroku_fc76ced2a4cd480"
 });
 
 var exports = module.exports = {};
