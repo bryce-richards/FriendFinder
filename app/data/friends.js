@@ -2,9 +2,13 @@ var mysql = require("mysql");
 
 var bluebird = require("bluebird");
 
-var credentials = require("../../keys").credentials;
-
-var connection = mysql.createConnection(credentials);
+var connection = mysql.createConnection({
+    host: process.env.host,
+    port: process.env.port,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
+});
 
 var exports = module.exports = {};
 
