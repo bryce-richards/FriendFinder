@@ -4,9 +4,9 @@ var bluebird = require("bluebird");
 
 var connection = mysql.createConnection({
     host: "us-cdbr-iron-east-04.cleardb.net",
-    user: "bf070deab3b355",
-    password: "f88f0312",
-    database: "heroku_fc76ced2a4cd480"
+    user: "be66145760d22c",
+    password: "b6a070bd",
+    database: "heroku_365d3b1ef23e18b"
 });
 
 var exports = module.exports = {};
