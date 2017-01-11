@@ -13,7 +13,7 @@ module.exports = function(app) {
                 return res.json(results);
             } else {
                 return res.json({
-                    results: "No friends!"
+                    error: "No friends!"
                 });
             }
         })

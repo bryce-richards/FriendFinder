@@ -143,17 +143,21 @@
 
             $.post(currentURL + "/api/friends", newFriend)
             .done(function(data) {
-                console.log("DATA! ", data);
 
-                // MODAL CODE FROM SAMPLE
-                $("#matchName").text(data.friend_name);
-                $("#matchImg").attr("src", data.friend_image).css("max-height", "400px");
+                if (Object.keys(data).length > 1) {
+                    // MODAL CODE FROM SAMPLE
+                    $("#matchName").text(data.friend_name);
+                    $("#matchImg").attr("src", data.friend_image).css("max-height", "400px");
+
+                } else {
+                    $("#matchName").text(data.error);
+                }
 
                 $("#resultsModal").modal('toggle');
-
                 $(".question").each(function() {
                     $(this).val("");
                 });
+
             });
         });
     </script>
