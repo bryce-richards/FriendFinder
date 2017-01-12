@@ -2,7 +2,11 @@ var mysql = require("mysql");
 
 var bluebird = require("bluebird");
 
-var connection = mysql.createConnection({
+
+exports.getFriends = getFriends;
+exports.compareFriends = compareFriends;
+
+var connection = mysql.createPool({
     host: process.env.host,
     port: 3306,
     user: process.env.user,
@@ -10,21 +14,11 @@ var connection = mysql.createConnection({
     database: process.env.database
 });
 
-var exports = module.exports = {};
-
-connection.connect(function(err) {
-    if (err) {
-        console.error("error connecting: " + err.stack);
-        return;
-    }
-    console.log("connected as id " + connection.threadId);
-});
-
 var query = bluebird.promisify(connection.query, {
     context: connection
 });
 
-// function 
+// function to get friends data from database
 function getFriends() {
 
     return query("SELECT * FROM friends")
@@ -123,6 +117,3 @@ function compareFriends(friend) {
         }
     });
 }
-
-exports.getFriends = getFriends;
-exports.compareFriends = compareFriends;
