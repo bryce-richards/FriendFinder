@@ -2,23 +2,38 @@ var mysql = require("mysql");
 
 var bluebird = require("bluebird");
 
-var connection = mysql.createConnection({
-    host: process.env.host,
-    port: 3306,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
-});
+var connection;
 
 var exports = module.exports = {};
 
-connection.connect(function(err) {
-    if (err) {
-        console.error("error connecting: " + err.stack);
-        return;
-    }
-    console.log("connected as id " + connection.threadId);
-});
+function handleDisconnect() {
+    connection= mysql.createConnection({
+        host: process.env.host,
+        port: 3306,
+        user: process.env.user,
+        password: process.env.password,
+        database: process.env.database
+    });
+
+    connection.connect(function(err) {
+        if(err) {
+            console.error("error connecting: " + err.stack);
+            setTimeout(handleDisconnect, 2000);
+        }
+        console.log("connected as id " + connection.threadId);
+    });                                     // process asynchronous requests in the meantime.
+                                            // If you're also serving http, display a 503 error.
+    connection.on("error", function(err) {
+        console.log("Database Error", err);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            handleDisconnect();                         // lost due to either server restart, or a
+        } else {                                      // connnection idle timeout (the wait_timeout
+            throw err;                                  // server variable configures this)
+        }
+    });
+}
+
+handleDisconnect();
 
 var query = bluebird.promisify(connection.query, {
     context: connection
