@@ -6,14 +6,16 @@ var connection;
 
 var exports = module.exports = {};
 
+var db_config = {
+    host: process.env.host,
+    port: 3306,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
+};
+
 function handleDisconnect() {
-    connection= mysql.createConnection({
-        host: process.env.host,
-        port: 3306,
-        user: process.env.user,
-        password: process.env.password,
-        database: process.env.database
-    });
+    connection = mysql.createConnection(db_config);
 
     connection.connect(function(err) {
         if(err) {
