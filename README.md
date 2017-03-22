@@ -2,7 +2,8 @@
 
 The ultimate Friend Finder.
 
-![Screenshot] (https://github.com/bryce-richards/FriendFinder/blob/master/friend-face.png)
+[Link](https://friend-face-app.herokuapp.com/)
+![Screenshot](https://github.com/bryce-richards/FriendFinder/blob/master/friend-face.png)
 
 ### About
 
@@ -11,10 +12,10 @@ Users fill out a survey and the app compares the results to the other users in t
 
 ### Technologies
 
-* [Node] (https://nodejs.org/en/)
-* [Express] (https://expressjs.com/)
-* [MySQL] (https://www.mysql.com/)
-* [Twitter Bootstrap] (http://getbootstrap.com/)
+* [Node](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [MySQL](https://www.mysql.com/)
+* [Twitter Bootstrap](http://getbootstrap.com/)
 
 ### Author
 * Bryce Richards
