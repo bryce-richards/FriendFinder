@@ -19,4 +19,5 @@ Users fill out a survey and the app compares the results to the other users in t
 * [Twitter Bootstrap](http://getbootstrap.com/)
 
 ### Author
+
 * Bryce Richards
