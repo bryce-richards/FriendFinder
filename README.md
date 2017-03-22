@@ -2,7 +2,7 @@
 
 The ultimate Friend Finder.
 
-[Link](https://friend-face-app.herokuapp.com/)
+[Demo](https://friend-face-app.herokuapp.com/)
 
 ![Screenshot](https://github.com/bryce-richards/FriendFinder/blob/master/friend-face.png)
 
